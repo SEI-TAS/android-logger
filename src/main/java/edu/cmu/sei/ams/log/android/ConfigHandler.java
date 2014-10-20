@@ -48,6 +48,7 @@ public class ConfigHandler
 
                         if (tagName.length() <= 23)
                         {
+                            Log.v("CLOUDLET", "Creating config: " + tagName + ":" + Config.LogLevel.of(level));
                             configMap.put(name, new Config(tagName, Config.LogLevel.of(level)));
                         }
                     }
