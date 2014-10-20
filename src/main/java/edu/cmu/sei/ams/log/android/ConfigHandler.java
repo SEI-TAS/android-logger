@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
  * User: jdroot
  * Date: 9/2/14
  * Time: 2:48 PM
+ *
+ * Will match logging entries of the format:
+ * logger.package=level:tag
  */
 public class ConfigHandler
 {
@@ -54,7 +57,7 @@ public class ConfigHandler
         catch (Exception e)
         {
             e.printStackTrace();
-//            Log.e("AndroidLogger", "Unable to load android-logging.properties");
+            Log.e("AndroidLogger", "Unable to load android-logging.properties");
         }
         if (!configMap.containsKey("root"))
             configMap.put("root", new Config());

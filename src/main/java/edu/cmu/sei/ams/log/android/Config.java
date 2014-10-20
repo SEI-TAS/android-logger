@@ -1,7 +1,5 @@
 package edu.cmu.sei.ams.log.android;
 
-import android.util.Log;
-
 /**
  * User: jdroot
  * Date: 9/2/14
