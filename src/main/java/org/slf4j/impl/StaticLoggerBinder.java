@@ -11,14 +11,14 @@ import org.slf4j.spi.LoggerFactoryBinder;
  */
 public class StaticLoggerBinder implements LoggerFactoryBinder
 {
-    private static final StaticLoggerBinder instance = new StaticLoggerBinder();
+    private static final StaticLoggerBinder SINGLETON = new StaticLoggerBinder();
 
     private final String loggerFactoryClsStr = LoggerFactory.class.getName();
     private final ILoggerFactory loggerFactory = new LoggerFactory();
 
     public static StaticLoggerBinder getSingleton()
     {
-        return instance;
+        return SINGLETON;
     }
 
     @Override
