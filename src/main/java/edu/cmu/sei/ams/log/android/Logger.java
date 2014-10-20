@@ -27,6 +27,7 @@ public class Logger extends MarkerIgnoringBase implements LocationAwareLogger
 
     private void log(LogLevel level, String msg, Throwable t)
     {
+        Log.v("CLOUDLET", "logging with tag name: " + tag);
         switch (level)
         {
             case Verbose: Log.v(tag, msg, t); break;

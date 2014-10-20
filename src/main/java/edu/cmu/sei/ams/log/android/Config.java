@@ -1,5 +1,7 @@
 package edu.cmu.sei.ams.log.android;
 
+import android.util.Log;
+
 /**
  * User: jdroot
  * Date: 9/2/14
@@ -52,6 +54,7 @@ public class Config
 
     public Config(String tagName, LogLevel level)
     {
+        Log.v("CLOUDLET", "Setting tag name to: " + tagName);
         this.tagName = tagName;
         this.logLevel = level;
     }
