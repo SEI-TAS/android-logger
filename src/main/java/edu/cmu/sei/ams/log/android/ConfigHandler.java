@@ -66,12 +66,14 @@ public class ConfigHandler
 
     private Config lookupConfig(String name)
     {
+        Log.v("CLOUDLET", "Looking up config for: " + name);
         if (name == null)
             return configMap.get("root");
 
         String deepestKey = "root";
         for (String key : configMap.keySet())
         {
+            Log.v("CLOUDLET", "Checking key: " + key);
             if (key.equals(name))
             {
                 deepestKey = key;
