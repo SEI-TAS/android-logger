@@ -70,7 +70,7 @@ public class ConfigHandler
         if (name == null)
             return configMap.get("root");
 
-        String deepestKey = "root";
+        String deepestKey = "";
         for (String key : configMap.keySet())
         {
             Log.v("CLOUDLET", "Checking key: " + key);
@@ -80,11 +80,18 @@ public class ConfigHandler
                 break;
             }
 
+            Log.v("CLOUDLET", "Starts with: " + name.startsWith(key));
+
             if (name.startsWith(key) && key.length() > deepestKey.length())
             {
+                Log.v("CLOUDLET", "Setting deepest key to: " + key);
                 deepestKey = key;
             }
         }
+        if (deepestKey.length() == 0)
+            deepestKey = "root";
+
+        Log.v("CLOUDLET", "Returning deepest config: " + deepestKey);
 
         return configMap.get(deepestKey);
     }
