@@ -1,7 +1,5 @@
 package edu.cmu.sei.ams.log.android;
 
-import android.util.Log;
-
 /**
  * User: jdroot
  * Date: 9/2/14
@@ -38,9 +36,10 @@ public class Config
 
         public boolean contains(LogLevel level)
         {
-            if (level == null)
-                return false;
-            return level.level >= this.level;
+            return level != null && level.level > this.level;
+//            if (level == null)
+//                return false;
+//            return level.level >= this.level;
         }
     }
 
@@ -49,12 +48,11 @@ public class Config
 
     public Config()
     {
-        this("AndroidLogger", LogLevel.Default);
+        this("android-slf4j", LogLevel.Default);
     }
 
     public Config(String tagName, LogLevel level)
     {
-        Log.v("CLOUDLET", "Setting tag name to: " + tagName);
         this.tagName = tagName;
         this.logLevel = level;
     }

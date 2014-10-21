@@ -1,6 +1,5 @@
 package org.slf4j.impl;
 
-import android.util.Log;
 import edu.cmu.sei.ams.log.android.LoggerFactory;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.spi.LoggerFactoryBinder;
@@ -26,7 +25,6 @@ public class StaticLoggerBinder implements LoggerFactoryBinder
     @Override
     public ILoggerFactory getLoggerFactory()
     {
-        Log.v("LOGGER", "Returning the logger factory");
         return loggerFactory;
     }
 

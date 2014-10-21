@@ -48,7 +48,6 @@ public class ConfigHandler
 
                         if (tagName.length() <= 23)
                         {
-                            Log.v("CLOUDLET", "Creating config: " + tagName + ":" + Config.LogLevel.of(level));
                             configMap.put(name, new Config(tagName, Config.LogLevel.of(level)));
                         }
                     }
@@ -58,7 +57,7 @@ public class ConfigHandler
         catch (Exception e)
         {
             e.printStackTrace();
-            Log.e("AndroidLogger", "Unable to load android-logging.properties");
+            Log.e("android-slf4j", "Unable to load android-logging.properties");
         }
         if (!configMap.containsKey("root"))
             configMap.put("root", new Config());
@@ -66,32 +65,25 @@ public class ConfigHandler
 
     private Config lookupConfig(String name)
     {
-        Log.v("CLOUDLET", "Looking up config for: " + name);
         if (name == null)
             return configMap.get("root");
 
         String deepestKey = "";
         for (String key : configMap.keySet())
         {
-            Log.v("CLOUDLET", "Checking key: " + key);
             if (key.equals(name))
             {
                 deepestKey = key;
                 break;
             }
 
-            Log.v("CLOUDLET", "Starts with: " + name.startsWith(key));
-
             if (name.startsWith(key) && key.length() > deepestKey.length())
             {
-                Log.v("CLOUDLET", "Setting deepest key to: " + key);
                 deepestKey = key;
             }
         }
         if (deepestKey.length() == 0)
             deepestKey = "root";
-
-        Log.v("CLOUDLET", "Returning deepest config: " + deepestKey);
 
         return configMap.get(deepestKey);
     }
