@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 sourceCompatibility = 1.6
 
@@ -13,8 +14,8 @@ repositories {
 
 dependencies {
     compile (
-            "org.slf4j:slf4j-api:1.7.7",
-            'com.google.android:android:4.1.1.4'
+        'org.slf4j:slf4j-api:1.7.7',
+        'com.google.android:android:4.1.1.4'
     )
 }
 
@@ -31,4 +32,54 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'Android SLF4J Logger'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'Logging Android library using slf4j.'
+        url 'https://github.com/SEI-AMS/android-logger'
+
+        scm {
+          connection 'scm:git:git@github.com:SEI-AMS/android-logger.git'
+          developerConnection 'scm:git:git@github.com:SEI-AMS/android-logger.git'
+          url 'git@github.com:SEI-AMS/android-logger.git'
+        }
+
+        licenses {
+          license {
+            name 'KD-Cloudlet license'
+            url 'https://github.com/SEI-AMS/android-logger/blob/master/LICENSE'
+          }
+        }
+
+        developers {
+          developer {
+            name 'Sebastian Echeverria'
+            email 'secheverria@sei.cmu.edu'
+            organization 'Software Engineering Institute'
+            organizationUrl 'https://github.com/SEI-AMS'
+          }
+        }
+      }
+    }
+  }
 }
