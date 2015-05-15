@@ -4,8 +4,10 @@ apply plugin: 'signing'
 
 sourceCompatibility = 1.6
 
+def artifactId = 'android-slf4j-logger'
 group = 'edu.cmu.sei.ams.log'
-version = '1.4.0'
+def groupId = group
+version = '1.4.1'
 
 repositories {
     mavenLocal()
@@ -36,6 +38,12 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+
+// Depends on mvn being installed on the machine, and having a local /.m2 repo. Works only on Windows for now.
+task publishLocal(type:Exec) {
+    executable 'mvn.bat'
+    args 'install:install-file', '-Dfile=build/libs/' + artifactId + '-' + version + '.jar', '-DgroupId=' + groupId, '-DartifactId=' + artifactId, '-Dversion=' + version, '-Dpackaging=jar'
 }
 
 uploadArchives {

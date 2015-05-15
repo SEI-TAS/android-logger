@@ -58,36 +58,40 @@ public class ConfigHandler
     private ConfigHandler()
     {
         InputStream is = getClass().getClassLoader().getResourceAsStream("android-logging.properties");
-        try
+        if(is == null)
         {
-            Properties props = new Properties();
-            props.load(is);
-            for (String key : props.stringPropertyNames())
+            Log.w("android-slf4j", "Unable to find android-logging.properties");
+        }
+        else
+        {
+            try
             {
-                Matcher nameMatcher = NAME_REGEX.matcher(key);
-                if (nameMatcher.matches()) // Ignore bad names
-                {
-                    String name = nameMatcher.group(1);
-                    String value = props.getProperty(key);
-                    Matcher valueMatcher = VALUE_REGEX.matcher(value);
-                    if (valueMatcher.matches()) // Ignore bad values
+                Properties props = new Properties();
+                props.load(is);
+                for (String key : props.stringPropertyNames()) {
+                    Matcher nameMatcher = NAME_REGEX.matcher(key);
+                    if (nameMatcher.matches()) // Ignore bad names
                     {
-                        String level = valueMatcher.group(1);
-                        String tagName = valueMatcher.group(2);
-
-                        if (tagName.length() <= 23)
+                        String name = nameMatcher.group(1);
+                        String value = props.getProperty(key);
+                        Matcher valueMatcher = VALUE_REGEX.matcher(value);
+                        if (valueMatcher.matches()) // Ignore bad values
                         {
-                            configMap.put(name, new Config(tagName, Config.LogLevel.of(level)));
+                            String level = valueMatcher.group(1);
+                            String tagName = valueMatcher.group(2);
+
+                            if (tagName.length() <= 23) {
+                                configMap.put(name, new Config(tagName, Config.LogLevel.of(level)));
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("android-slf4j", "Unable to load android-logging.properties");
             }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            Log.e("android-slf4j", "Unable to load android-logging.properties");
-        }
+
         if (!configMap.containsKey("root"))
             configMap.put("root", new Config());
     }
