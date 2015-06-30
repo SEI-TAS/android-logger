@@ -9,6 +9,10 @@ group = 'edu.cmu.sei.ams.log'
 def groupId = group
 version = '1.4.1'
 
+wrapper {
+    gradleVersion = '2.3'
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
