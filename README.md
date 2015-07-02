@@ -1,5 +1,7 @@
 # android-logger
 
+android-logger is a the library used by KD-Cloudlet for logging. It is based on the Simple Logging Facade for Java (SLF4J) (www.slf4j.org).
+
 Cloudlets are discoverable, generic, stateless servers located in single-hop proximity of mobile devices, that can operate in disconnected mode and are virtual-machine (VM) based to promote flexibility, mobility, scalability, and elasticity. In our implementation of cloudlets, applications are statically partitioned into a very thin client that runs on the mobile device and a computation-intensive Server that runs inside a Service VM. Read more about cloudlets at http://sei.cmu.edu/mobilecomputing/research/tactical-cloudlets/.
 
 KD-Cloudlet comprises a total of 7 GitHub projects:
