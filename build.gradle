@@ -45,11 +45,7 @@ signing {
     sign configurations.archives
 }
 
-// Depends on mvn being installed on the machine, and having a local /.m2 repo. Works only on Windows for now.
-task publishLocal(type:Exec) {
-    executable 'mvn.bat'
-    args 'install:install-file', '-Dfile=build/libs/' + artifactId + '-' + version + '.jar', '-DgroupId=' + groupId, '-DartifactId=' + artifactId, '-Dversion=' + version, '-Dpackaging=jar'
-}
+// NOTE: to test the library locally, "gradlew install" can be used. This requires maven to be installed locally, and a local .m2 repo to exist.
 
 uploadArchives {
   repositories {
